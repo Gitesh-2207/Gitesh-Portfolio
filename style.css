@@ -1,0 +1,362 @@
+/* === Reset & Base Styles === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f0f0f;
+  color: #ddd;
+}
+
+/* === Layout Structure === */
+.container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* === Sidebar === */
+.sidebar {
+  width: 300px;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #1a1a1a;
+  border-radius: 0 20px 20px 0;
+  padding: 30px 20px;
+  text-align: center;
+  color: #fff;
+  overflow-y: auto;
+
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE 10+ */
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari */
+}
+
+/* === Sidebar Content === */
+.profile-pic img {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  background-color: #333;
+}
+
+.name {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 20px 0 10px;
+}
+
+.role {
+  background-color: #2e2e2e;
+  padding: 8px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 30px;
+  display: inline-block;
+}
+
+.contact-details {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  background-color: #2e2e2e;
+  border-radius: 12px;
+  padding: 12px;
+  gap: 12px;
+}
+
+.icon-container {
+  width: 45px;
+  height: 45px;
+  background-color: #1c1c1c;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.contact-label {
+  font-size: 12px;
+  color: #aaaaaa;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+.contact-value a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.contact-value a:hover {
+  color: #ffc107;
+  text-decoration: underline;
+}
+
+/* === Main Content === */
+.main-content {
+  margin-left: 300px;
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #1c1c1c;
+  border-radius: 20px 0 0 20px;
+  padding-bottom: 100px;
+
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.main-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* === Navbar === */
+.navbar {
+  display: flex;
+  padding: 20px 30px;
+  background-color: #2a2a2a;
+  border-bottom: 1px solid #333;
+  gap: 30px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  flex-wrap: wrap;
+}
+
+.navbar a {
+  color: #ccc;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navbar a:hover {
+  color: #ffc107;
+  text-decoration: underline;
+}
+
+/* === Sections === */
+.section {
+  padding: 60px 30px;
+  border-bottom: 1px solid #333;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 10px auto 0;
+  background-color: #ffc107;
+  border-radius: 2px;
+}
+
+.about-text {
+  margin-bottom: 15px;
+  line-height: 1.7;
+  color: #ccc;
+}
+
+.section-subtitle {
+  font-size: 24px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* === Cards === */
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex: 1;
+  min-width: 250px;
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 15px;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.card a {
+  color: #ffc107;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+/* === Resume Buttons === */
+.resume-btn {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #1c1c1c;
+  padding: 10px 20px;
+  border-radius: 15px;
+  text-decoration: none;
+  font-weight: 600;
+  margin-right: 10px;
+  margin-top: 20px;
+  transition: background 0.3s ease;
+}
+
+.resume-btn:hover {
+  background-color: #e0a800;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* === Contact Form === */
+.contact-form {
+  max-width: 500px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid #ffc107;
+}
+
+.contact-form button {
+  background-color: #ffc107;
+  color: #000;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #e6ac00;
+}
+
+/* === Education Section === */
+#education {
+  background-color: #1c1c1c;
+  color: #fff;
+  padding: 60px 30px;
+  border-bottom: 1px solid #333;
+}
+
+#education .section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+#education .section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  margin: 10px auto 0;
+  background-color: #ffc107;
+  border-radius: 2px;
+}
+
+/* Individual education entry cards */
+#education .education-entry {
+  background-color: #2a2a2a;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  color: #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+#education .education-entry:hover {
+  transform: translateY(-5px);
+}
+
+#education .education-entry h3 {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+#education .education-sub {
+  font-size: 14px;
+  color: #aaa;
+  line-height: 1.5;
+}
