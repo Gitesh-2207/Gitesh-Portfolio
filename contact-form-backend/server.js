@@ -1,46 +1,79 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 
 // Middleware
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true })); // handles form data
-app.use(bodyParser.json());
+app.use(express.json());
 
-// MongoDB Connection
-mongoose.connect("mongodb://localhost:27017/portfolio", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
-db.once("open", () => console.log("MongoDB connected"));
+// ✅ CORS Setup (Netlify + any localhost/127.0.0.1 port)
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("Incoming request from:", origin);
 
-// Mongoose Schema
-const ContactSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    message: String,
-    createdAt: { type: Date, default: Date.now },
-});
+    if (!origin) return callback(null, true); // allow Postman, curl
 
-const Contact = mongoose.model("Contact", ContactSchema);
+    if (origin === process.env.CLIENT_ORIGIN) return callback(null, true);
 
-// POST endpoint to receive form data
-app.post("/contact", async (req, res) => {
-    try {
-        const contact = new Contact(req.body);
-        await contact.save();
-        res.status(200).send("Form submitted successfully!");
-    } catch (err) {
-        res.status(500).send("Error submitting form");
+    if (/^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) {
+      return callback(null, true);
     }
+
+    callback(new Error("CORS policy: origin not allowed"));
+  }
+};
+
+app.use(cors(corsOptions));
+
+// ✅ MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log("✅ MongoDB connected successfully"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
+
+// ✅ Contact Schema
+const contactSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  message: String,
+  createdAt: { type: Date, default: Date.now }
 });
 
+const Contact = mongoose.model("Contact", contactSchema);
+
+// ✅ Contact Route (Save Message)
+app.post("/contact", async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+
+    const newContact = new Contact({ name, email, message });
+    await newContact.save();
+
+    res.status(201).send("✅ Message saved to MongoDB!");
+  } catch (err) {
+    console.error("❌ Error saving contact:", err);
+    res.status(500).send("Server error, please try again later.");
+  }
+});
+
+// ✅ (Optional) Get All Messages
+app.get("/contact", async (req, res) => {
+  try {
+    const messages = await Contact.find().sort({ createdAt: -1 });
+    res.json(messages);
+  } catch (err) {
+    res.status(500).send("❌ Failed to fetch messages.");
+  }
+});
+
+// Example route
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
+
+// Start server
 app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
