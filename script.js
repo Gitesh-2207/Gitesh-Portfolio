@@ -9,7 +9,7 @@
     window.addEventListener("scroll", () => {
       let currentSection = "";
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop - 120; // adjust offset if needed
+        const sectionTop = section.offsetTop - 120; 
         if (scrollY >= sectionTop) {
           currentSection = section.getAttribute("id");
         }
@@ -38,7 +38,7 @@
         };
 
         try {
-          const res = await fetch("https://gitesh-portfolio-34vl.onrender.com/contact", {
+          const res = await fetch("https://gitesh-portfolio-r51u.vercel.app/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),
