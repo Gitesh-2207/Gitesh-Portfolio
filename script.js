@@ -38,7 +38,7 @@
         };
 
         try {
-          const res = await fetch("http://localhost:5500/contact", {
+          const res = await fetch("https://gitesh-portfolio-34vl.onrender.com/contact", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(formData),

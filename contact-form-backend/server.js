@@ -9,15 +9,18 @@ const PORT = process.env.PORT || 5500;
 // Middleware
 app.use(express.json());
 
-// ✅ CORS Setup (Netlify + any localhost/127.0.0.1 port)
+// ✅ CORS Setup (Allow specific origin if provided, otherwise allow all)
 const corsOptions = {
   origin: function (origin, callback) {
     console.log("Incoming request from:", origin);
 
-    if (!origin) return callback(null, true); // allow Postman, curl
+    if (!origin) return callback(null, true); // allow Postman, curl, same-origin
 
-    if (origin === process.env.CLIENT_ORIGIN) return callback(null, true);
+    if (process.env.CLIENT_ORIGIN && origin === process.env.CLIENT_ORIGIN) {
+      return callback(null, true);
+    }
 
+    // Allow local dev (http://localhost:5173, http://127.0.0.1:5500 etc.)
     if (/^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) {
       return callback(null, true);
     }
@@ -68,7 +71,7 @@ app.get("/contact", async (req, res) => {
   }
 });
 
-// Example route
+// Root route
 app.get("/", (req, res) => {
   res.send("Backend is running 🚀");
 });
